@@ -1,0 +1,80 @@
+version: 2.1
+orbs:
+  lacework: lacework/lacework@1.2.2
+
+workflows:
+  #with-lw-scanner:
+   # jobs:
+      # - scan-vuln-image-with-lw-scanner
+      # - build-vuln-image
+  with-lacework-cli:
+    jobs:
+      - cli-scan
+
+jobs:
+  scan-vuln-image-with-lw-scanner:
+    machine: true
+    steps:
+    - checkout
+
+    - run: echo "testing"
+    - run:
+        name: Install lw-scanner
+        command: |
+          wget https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.2.0/lw-scanner-linux-amd64.tar.gz -O lw-scanner.tar.gz
+          # This places the binary in a folder /bin/lw-scanner
+          tar xvf lw-scanner.tar.gz
+          # Make this executable
+          chmod +x ./bin/lw-scanner
+          # check scanner
+          ./bin/lw-scanner > /dev/null 2>&1
+    - run:
+        name: Fetch image
+        command: docker pull chriscircleci/vuln_django:7f7305bea884b63578c28d4513a916e2247ec152
+    - run:
+        name: Execute scan
+        command: |
+          # Need to move this
+          ./bin/lw-scanner evaluate chriscircleci/vuln_django 7f7305bea884b63578c28d4513a916e2247ec152 -d=/home/circleci/project/ --scan-library-packages --html --save --tags ci_provider=circleci,user=aedifex
+    - run:
+        name: Create directory to persist artifacts
+        command: |
+          mkdir  lacework-artifacts/
+
+          if [ `ls -1 *.html 2>/dev/null | wc -l ` -gt 0 ]; then
+            mv *.html lacework-artifacts/
+          fi
+    - store_artifacts:
+        path: lacework-artifacts
+
+  build-vuln-image:
+    machine: true
+    steps:
+    - checkout
+    - run: echo "build image"
+    - run: docker build -t aedifex_hack:latest .
+    - run:
+        name: Install lw-scanner
+        command: |
+          wget https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.2.0/lw-scanner-linux-amd64.tar.gz -O lw-scanner.tar.gz
+          # This places the binary in a folder /bin/lw-scanner
+          tar xvf lw-scanner.tar.gz
+          # Make this executable
+          chmod +x ./bin/lw-scanner
+          # check scanner
+          ./bin/lw-scanner > /dev/null 2>&1
+    - run:
+        name: Execute scan
+        command: |
+          # Need to move this
+          ./bin/lw-scanner evaluate aedifex_hack latest -d=/home/circleci/project/ --scan-library-packages --tags ci_provider=circleci,user=aedifex
+
+  cli-scan:
+    executor: lacework/default
+    steps:
+      - checkout
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: chriscircleci/vuln_django
+          tag: 7f7305bea884b63578c28d4513a916e2247ec152
+          fail_on_fixable: false
