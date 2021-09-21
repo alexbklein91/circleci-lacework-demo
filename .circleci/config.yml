@@ -3,9 +3,9 @@ orbs:
   lacework: lacework/lacework@1.3.0
 
 workflows:
-  #with-lw-scanner:
-   # jobs:
-      # - scan-vuln-image-with-lw-scanner
+  with-lw-scanner:
+   jobs:
+      - scan-vuln-image-with-lw-scanner
       # - build-vuln-image
   with-lacework-cli:
     jobs:
