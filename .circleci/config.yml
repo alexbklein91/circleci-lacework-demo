@@ -5,11 +5,11 @@ orbs:
 workflows:
   with-lw-scanner:
    jobs:
-      - scan-vuln-image-with-lw-scanner
-      # - build-vuln-image
+      #- scan-vuln-image-with-lw-scanner
+      - build-and-scan-vuln-image
   with-lacework-cli:
     jobs:
-      - cli-scan
+      #- cli-scan
 
 jobs:
   scan-vuln-image-with-lw-scanner:
@@ -19,6 +19,8 @@ jobs:
 
     - run: echo "testing"
     - run:
+        # In lieu if having an install script proper, the following block
+        # pulls in the lw-scanner binary, un-tars it, and makes it executable.
         name: Install lw-scanner
         command: |
           wget https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.2.0/lw-scanner-linux-amd64.tar.gz -O lw-scanner.tar.gz
@@ -47,7 +49,7 @@ jobs:
     - store_artifacts:
         path: lacework-artifacts
 
-  build-vuln-image:
+  build-and-scan-vuln-image:
     machine: true
     steps:
     - checkout
