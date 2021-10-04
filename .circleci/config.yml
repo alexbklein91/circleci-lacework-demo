@@ -68,8 +68,7 @@ jobs:
     - run:
         name: Execute scan
         command: |
-          # Need to move this
-          ./bin/lw-scanner evaluate aedifex_hack latest -d=/home/circleci/project/ --scan-library-packages --tags ci_provider=circleci,user=aedifex
+          ./scan_images.sh
 
   cli-scan:
     executor: lacework/default
