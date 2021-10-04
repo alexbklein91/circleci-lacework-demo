@@ -7,8 +7,8 @@ workflows:
    jobs:
       #- scan-vuln-image-with-lw-scanner
       - build-and-scan-vuln-image
-  with-lacework-cli:
-    jobs:
+  #with-lacework-cli:
+  #  jobs:
       #- cli-scan
 
 jobs:
