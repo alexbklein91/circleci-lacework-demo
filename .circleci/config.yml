@@ -68,8 +68,8 @@ jobs:
     - run:
         name: Execute scan
         command: |
-        chmod +x scan_images.sh
-        ./scan_images.sh
+          chmod +x scan_images.sh
+          ./scan_images.sh
 
   cli-scan:
     executor: lacework/default
