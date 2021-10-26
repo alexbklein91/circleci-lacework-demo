@@ -1,6 +1,6 @@
 <img src="https://techally-content.s3-us-west-1.amazonaws.com/public-content/lacework_logo_full.png" width="600">
 
-[![CircleCI Build Status](https://circleci.com/gh/aedifex/circleci-lacework-demo.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/aedifex/circleci-lacework-demo) 
+[![CircleCI Build Status](https://circleci.com/gh/aedifex/circleci-lacework-demo.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/aedifex/circleci-lacework-demo)
 
 ![Orb Version Badge](https://badges.circleci.com/orbs/lacework/lacework.svg)
 
