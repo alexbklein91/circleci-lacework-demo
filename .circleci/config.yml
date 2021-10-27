@@ -68,6 +68,16 @@ jobs:
     - run:
         name: Execute Scan
         command: ./bin/lw-scanner evaluate aedifex_hack latest -d=/home/circleci/project/ --scan-library-packages --tags ci_provider=circleci,user=aedifex
+     - run:
+        name: Create directory to persist artifacts
+        command: |
+          mkdir  lacework-artifacts/
+
+          if [ `ls -1 *.html 2>/dev/null | wc -l ` -gt 0 ]; then
+            mv *.html lacework-artifacts/
+          fi
+    - store_artifacts:
+        path: lacework-artifacts
     # - run:
     #     name: Execute scan
     #     command: |
