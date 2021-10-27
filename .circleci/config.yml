@@ -66,10 +66,13 @@ jobs:
           # check scanner
           ./bin/lw-scanner > /dev/null 2>&1
     - run:
-        name: Execute scan
-        command: |
-          chmod +x scan_images.sh
-          ./scan_images.sh
+        name: Execute Scan
+        command: ./bin/lw-scanner evaluate aedifex_hack latest -d=/home/circleci/project/ --scan-library-packages --tags ci_provider=circleci,user=aedifex
+    # - run:
+    #     name: Execute scan
+    #     command: |
+    #       chmod +x scan_images.sh
+    #       ./scan_images.sh
 
   cli-scan:
     executor: lacework/default
