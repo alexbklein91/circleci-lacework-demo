@@ -48,41 +48,19 @@ jobs:
           fi
     - store_artifacts:
         path: lacework-artifacts
-
   build-and-scan-vuln-image:
     machine: true
     steps:
     - checkout
-    - run: echo "build image"
-    - run: docker build -t aedifex_hack:latest .
+    - run:
+        name: Build Docker Image
+        command: |
+            docker build -t aedifex_hack:latest .
     - run:
         name: Install lw-scanner
         command: |
-          wget https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v0.2.0/lw-scanner-linux-amd64.tar.gz -O lw-scanner.tar.gz
-          # This places the binary in a folder /bin/lw-scanner
-          tar xvf lw-scanner.tar.gz
-          # Make this executable
-          chmod +x ./bin/lw-scanner
-          # check scanner
-          ./bin/lw-scanner > /dev/null 2>&1
-    - run:
-        name: Execute Scan
-        command: ./bin/lw-scanner evaluate aedifex_hack latest -d=/home/circleci/project/ --scan-library-packages --tags ci_provider=circleci,user=aedifex
-     - run:
-        name: Create directory to persist artifacts
-        command: |
-          mkdir  lacework-artifacts/
-
-          if [ `ls -1 *.html 2>/dev/null | wc -l ` -gt 0 ]; then
-            mv *.html lacework-artifacts/
-          fi
-    - store_artifacts:
-        path: lacework-artifacts
-    # - run:
-    #     name: Execute scan
-    #     command: |
-    #       chmod +x scan_images.sh
-    #       ./scan_images.sh
+            chmod +x install_lw_scanner.sh
+            ./install_lw_scanner.sh
 
   cli-scan:
     executor: lacework/default
