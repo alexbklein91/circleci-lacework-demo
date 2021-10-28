@@ -5,11 +5,11 @@ orbs:
 workflows:
   with-lw-scanner:
    jobs:
-      #- scan-vuln-image-with-lw-scanner
+      - scan-vuln-image-with-lw-scanner
       - build-and-scan-vuln-image
-  #with-lacework-cli:
-  #  jobs:
-      #- cli-scan
+  with-lacework-cli:
+    jobs:
+      - cli-scan
 
 jobs:
   scan-vuln-image-with-lw-scanner:
