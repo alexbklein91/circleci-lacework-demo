@@ -1,5 +1,7 @@
 <img src="https://techally-content.s3-us-west-1.amazonaws.com/public-content/lacework_logo_full.png" width="600">
 
+[![Git](https://app.soluble.cloud/api/v1/public/badges/6c8fe366-ec1a-4bb2-aa10-2cef210ee644.svg?orgId=685843222381)](https://app.soluble.cloud/repos/details/github.com/alexbklein91/circleci-lacework-demo?orgId=685843222381)  
+
 [![CircleCI Build Status](https://circleci.com/gh/aedifex/circleci-lacework-demo.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/aedifex/circleci-lacework-demo)
 
 ![Orb Version Badge](https://badges.circleci.com/orbs/lacework/lacework.svg)
