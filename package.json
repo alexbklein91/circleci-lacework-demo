@@ -1,0 +1,23 @@
+{
+  "name": "wiz-demo-app",
+  "version": "1.1.0",
+  "description": "A simple Node.js app with optimized dependencies and health checks.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.20.0",
+    "axios": "1.7.4",
+    "mongoose": "^7.5.0",
+    "helmet": "^6.2.0",
+    "moment": "^2.29.4",
+    "mockery": "2.1.0",
+    "express-rate-limit": "7.5.0",
+    "body-parser": "^1.20.2",
+    "escape-html": "^1.0.3",
+    "validator": "^13.9.0"
+  }
+}
